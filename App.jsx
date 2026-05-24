@@ -1,25 +1,12 @@
-export default function GrapeTrackerApp() {
+import React from 'react'
+
+export default function App() {
   const grapes = [1, 2, 3, 4, 5]
   const total = grapes.reduce((a, b) => a + b, 0)
 
-  const [filled, setFilled] = React.useState(Array(total).fill(false))
-  const [roomName, setRoomName] = React.useState('우리 포도알')
-
-  React.useEffect(() => {
-    const saved = localStorage.getItem('grape-room')
-    if (saved) {
-      const parsed = JSON.parse(saved)
-      setFilled(parsed.filled)
-      setRoomName(parsed.roomName)
-    }
-  }, [])
-
-  React.useEffect(() => {
-    localStorage.setItem(
-      'grape-room',
-      JSON.stringify({ filled, roomName })
-    )
-  }, [filled, roomName])
+  const [filled, setFilled] = React.useState(
+    Array(total).fill(false)
+  )
 
   const toggleGrape = (index) => {
     const updated = [...filled]
@@ -34,51 +21,61 @@ export default function GrapeTrackerApp() {
   let currentIndex = 0
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-100 to-violet-100 p-6 flex items-center justify-center">
-      <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-xl w-full">
-        <div className="flex items-center justify-between mb-6 gap-3">
-          <input
-            value={roomName}
-            onChange={(e) => setRoomName(e.target.value)}
-            className="text-2xl font-bold border rounded-xl px-4 py-2 w-full"
-          />
+    <div style={{
+      minHeight: '100vh',
+      background: '#f3e8ff',
+      padding: '20px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <div style={{
+        background: 'white',
+        padding: '30px',
+        borderRadius: '20px',
+        width: '400px',
+        textAlign: 'center'
+      }}>
+        <h1>🍇 포도알 채우기</h1>
 
-          <button
-            onClick={resetAll}
-            className="bg-violet-500 hover:bg-violet-600 text-white px-4 py-2 rounded-xl font-semibold"
-          >
-            초기화
-          </button>
-        </div>
+        <button
+          onClick={resetAll}
+          style={{
+            marginBottom: '20px',
+            padding: '10px 20px',
+            border: 'none',
+            borderRadius: '10px',
+            background: '#9333ea',
+            color: 'white',
+            cursor: 'pointer'
+          }}
+        >
+          초기화
+        </button>
 
-        <div className="text-center mb-6">
-          <div className="text-lg font-semibold text-gray-700">
-            {filled.filter(Boolean).length} / {total} 개 채움
-          </div>
-
-          <div className="w-full bg-gray-200 rounded-full h-4 mt-3 overflow-hidden">
-            <div
-              className="bg-gradient-to-r from-pink-400 to-violet-500 h-4 rounded-full transition-all duration-300"
-              style={{ width: `${(filled.filter(Boolean).length / total) * 100}%` }}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-col items-center gap-3 mt-8">
+        <div>
           {grapes.map((count, rowIndex) => {
             const row = []
 
             for (let i = 0; i < count; i++) {
               const grapeIndex = currentIndex
+
               row.push(
                 <button
                   key={grapeIndex}
                   onClick={() => toggleGrape(grapeIndex)}
-                  className={`w-16 h-16 rounded-full text-3xl transition-all duration-200 shadow-md hover:scale-105 ${
-                    filled[grapeIndex]
-                      ? 'bg-violet-500 text-white'
-                      : 'bg-white border-2 border-violet-300 text-violet-300'
-                  }`}
+                  style={{
+                    width: '55px',
+                    height: '55px',
+                    margin: '4px',
+                    borderRadius: '50%',
+                    border: '2px solid #9333ea',
+                    background: filled[grapeIndex]
+                      ? '#9333ea'
+                      : 'white',
+                    fontSize: '24px',
+                    cursor: 'pointer'
+                  }}
                 >
                   🍇
                 </button>
@@ -88,3 +85,13 @@ export default function GrapeTrackerApp() {
             }
 
             return (
+              <div key={rowIndex}>
+                {row}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
