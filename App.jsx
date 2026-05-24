@@ -94,7 +94,7 @@ export default function App() {
         boxShadow: '0 0 20px rgba(0,0,0,0.1)'
       }}>
 
-        <h1>🍇 실시간 포도알 채우기</h1>
+        <h1>🍇 벌점말고 상점주세요 </h1>
 
         <p>
           {filled.filter(Boolean).length} / {total}
@@ -131,8 +131,8 @@ export default function App() {
                   key={grapeIndex}
                   onClick={() => toggleGrape(grapeIndex)}
                   style={{
-                    width: '55px',
-                    height: '55px',
+                    width: '42px',
+                    height: '42px',
                     margin: '4px',
                     borderRadius: '50%',
                     border: '2px solid #9333ea',
