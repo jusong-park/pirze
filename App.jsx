@@ -94,7 +94,7 @@ export default function App() {
         boxShadow: '0 0 20px rgba(0,0,0,0.1)'
       }}>
 
-        <h1>🍇 벌점말고 상점주세요 </h1>
+        <h1>🍇 벌점 말고 상점 </h1>
 
         <p>
           {filled.filter(Boolean).length} / {total}
